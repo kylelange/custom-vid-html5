@@ -27,18 +27,23 @@ function togglePlay() {
 function pauseButton() {
   const icon = this.paused ? '►' : '❚ ❚';
   toggle.textContent = icon;
-  console.log(icon);
+  //console.log(icon);
 }
 
 function skip() {
-  console.log(this.dataset.skip);
+  //console.log(this.dataset.skip);
   video.currentTime += parseFloat(this.dataset.skip);
 }
 
 function handleRangeUpdate() {
-  video[this.name] = this.value
-  console.log(this.name);
-  console.log(this.value);
+  video[this.name] = this.value;
+  //console.log(this.name);
+  //console.log(this.value);
+}
+
+function handleProgress() {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.flexBasis = `${percent}%`;
 }
 
 video.addEventListener('click', togglePlay);
@@ -47,3 +52,4 @@ video.addEventListener('pause', pauseButton);
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
+video.addEventListener('timeupdate', handleProgress);
